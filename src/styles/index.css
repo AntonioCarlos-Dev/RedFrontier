@@ -1,6 +1,7 @@
-*::before
-*::after{
-
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }
 
 * {
@@ -13,13 +14,13 @@
 }
 
 :root {
-  --bg-color: #181414;
-    --text-color: #252B42;
-    --second-text-color: #737373;
+    --bg-color: #181414;
+    --text-color: #F5F5F5;
+    --second-text-color: #A0A0A0;
     --light-text-color: #FFF;
-    --light-gray: #F8F8F8;
-    --primary-color: #23A6F0;
-    --secondary-color: #B2E3FF;
+    --light-gray: #2A2424;
+    --primary-color: #E2542C;
+    --secondary-color: #7A2E1A;
 
     --ff-sans: "Montserrat", system-ui, sans-serif;
     --fw-base: 400;
@@ -106,3 +107,4 @@ ul {
         --pg-lg: 2rem;
     }
 }
+
