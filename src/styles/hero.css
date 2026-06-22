@@ -1,0 +1,43 @@
+#hero {
+    position: relative;
+    min-height: 90vh;
+    display: flex;
+    background-image: linear-gradient(rgba(24, 20, 20, 0.55), rgba(24, 20, 20, 0.85)), url("../assets/images/mars-hero.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+#hero p {
+    color: var(--second-text-color);
+}
+
+#hero .content {
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: center;
+    gap: 1.75rem;
+}
+
+#hero .content > div {
+    width: fit-content;
+    align-self: center;
+}
+
+@media (width >= 1280px) {
+    .content p {
+        width: 60%;
+        align-self: center;
+    }
+
+    .content {
+        gap: 2.5rem;
+    }
+
+    .content p:first-of-type {
+        color: var(--primary-color);
+        font-weight: var(--fw-bold);
+    }
+}
