@@ -20,10 +20,13 @@ import Avatar4 from "../assets/images/avatar-4.png";
 import Avatar5 from "../assets/images/avatar-5.png";
 import PricingCard from "../components/PricingCard";
 import "../styles/pricing.css";
+import "../styles/contact.css";
 
 
 export default function Home() {
     const [showMobileMenu, setShowMobileMenu] = useState(false);
+    const [email, setEmail] = useState("");
+    const [message, setMessage] = useState("");
 
     useEffect(() => {
     const html = document.querySelector("html");
@@ -209,6 +212,34 @@ export default function Home() {
             ]}
         />
     </section>
+</section>
+
+<section id="contact" className="container">
+    <header>
+        <p className="desktop-only">Fale com a missão</p>
+        <h2>Entre em contato</h2>
+        <p>
+            Dúvidas sobre os dados, sugestões de missões ou quer levar o
+            RedFrontier pra sua escola? Estamos à disposição — mande sua mensagem.
+        </p>
+    </header>
+
+    <div className="contact-form">
+        <input
+            type="email"
+            placeholder="Seu melhor email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+        />
+        <textarea
+            placeholder="Sobre o que você quer falar?"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+        />
+        <span>
+            <Button text="Enviar" />
+        </span>
+    </div>
 </section>
 
         </>
