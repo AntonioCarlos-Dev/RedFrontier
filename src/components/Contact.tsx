@@ -4,20 +4,33 @@ import "../styles/contact.css";
 export default function Contact() {
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
+    const [statusText, setStatusText] = useState("");
 
     async function sendContactEmail() {
-        const response = await fetch("/api/send-email", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                email,
-                message
-            }),
-        });
+        if (!email || !message) {
+            setStatusText("Preencha todos os campos.");
+            return;
+        }
 
-        if (!response.ok) {
-            const body = await response.json().catch(() => ({}));
-            throw new Error(body.error ?? "Erro ao enviar mensagem.");
+        setStatusText("Enviando..."); 
+
+        try {
+            const response = await fetch("/api/send-email", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, message }),
+            });
+
+            if (!response.ok) {
+                const body = await response.json().catch(() => ({}));
+                throw new Error(body.error ?? "Erro ao enviar mensagem.");
+            }
+
+            setStatusText("Mensagem enviada com sucesso! 🚀");
+            setEmail("");
+            setMessage("");
+        } catch (error: any) {
+            setStatusText(error.message);
         }
     }
 
@@ -52,7 +65,13 @@ export default function Contact() {
                         Enviar
                     </button>
                 </span>
+        
+                {statusText && (
+                    <p style={{ textAlign: "center", color: "var(--primary-color)", marginTop: "1rem" }}>
+                        {statusText}
+                    </p>
+                )}
             </div>
         </section>
-    )
+    );
 }
