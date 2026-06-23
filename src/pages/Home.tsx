@@ -4,7 +4,7 @@ import Menu from "../assets/menu.svg";
 import Close from "../assets/close.svg";
 import Button from "../components/Button";
 import "../styles/header.css";
-import "../styles/utility.css";
+import "../styles/utilities.css";
 import "../styles/hero.css";
 import Card from "../components/Card";
 import MapPin from "../assets/map-pin.svg";
