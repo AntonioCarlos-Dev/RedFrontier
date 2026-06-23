@@ -1,10 +1,17 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 import "../styles/contact.css";
 
 export default function Contact() {
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
     const [statusText, setStatusText] = useState("");
+    const [isChallengeCompleted, setChallengeCompleted] = useState(false);
+    const recaptchaRef = useRef<ReCAPTCHA>(null);
+
+    function handleCompleteChallenge(token: string | null) {
+        setChallengeCompleted(!!token);
+    }
 
     async function sendContactEmail() {
         if (!email || !message) {
@@ -12,7 +19,12 @@ export default function Contact() {
             return;
         }
 
-        setStatusText("Enviando..."); 
+        if (!isChallengeCompleted) {
+            setStatusText("Confirme que você não é um robô.");
+            return;
+        }
+
+        setStatusText("Enviando...");
 
         try {
             const response = await fetch("/api/send-email", {
@@ -29,8 +41,12 @@ export default function Contact() {
             setStatusText("Mensagem enviada com sucesso! 🚀");
             setEmail("");
             setMessage("");
+            setChallengeCompleted(false);
+            recaptchaRef.current?.reset();
         } catch (error: any) {
             setStatusText(error.message);
+            recaptchaRef.current?.reset();
+            setChallengeCompleted(false);
         }
     }
 
@@ -57,6 +73,12 @@ export default function Contact() {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                 />
+                <ReCAPTCHA
+                    ref={recaptchaRef}
+                    sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+                    onChange={handleCompleteChallenge}
+                    theme="dark"
+                />
                 <span>
                     <button
                         className="btn-primary"
@@ -65,7 +87,7 @@ export default function Contact() {
                         Enviar
                     </button>
                 </span>
-        
+
                 {statusText && (
                     <p style={{ textAlign: "center", color: "var(--primary-color)", marginTop: "1rem" }}>
                         {statusText}
