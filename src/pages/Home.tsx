@@ -22,6 +22,8 @@ import PricingCard from "../components/PricingCard";
 import "../styles/pricing.css";
 import "../styles/contact.css";
 import Contact from "../components/Contact";
+import "../styles/footer.css";
+import Footer from "../components/Footer.";
 
 
 export default function Home() {
@@ -216,6 +218,7 @@ export default function Home() {
 </section>
 
 <Contact />
+<Footer />
         </>
     )
 }
